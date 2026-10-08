@@ -19,7 +19,7 @@ node_modules/
 dist/
 
 # Go
-backend
+apps/portfolio/backend/backend
 *.test
 
 # Local

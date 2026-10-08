@@ -34,7 +34,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: sudo apt-get update && sudo apt-get install --yes shellcheck
+      - name: Install shellcheck
+        run: |
+          mkdir -p "$HOME/.local/bin"
+          curl -sSL "https://github.com/koalaman/shellcheck/releases/download/v0.10.0/shellcheck-v0.10.0.linux.x86_64.tar.xz" -o /tmp/sc.tar.xz
+          tar -xJf /tmp/sc.tar.xz -C "$HOME/.local/bin" --strip-components=1 shellcheck-v0.10.0/shellcheck
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
       - run: shellcheck scripts/*.sh ansible/test.sh
 
   kustomize:

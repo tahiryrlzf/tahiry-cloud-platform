@@ -1,0 +1,69 @@
+---
+- name: Verify k3s and portfolio deployment
+  hosts: vps2
+  become: true
+  tasks:
+    - name: Read node state
+      ansible.builtin.command:
+        argv: [/usr/local/bin/k3s, kubectl, get, nodes, -o, wide]
+      register: nodes
+      changed_when: false
+
+    - name: Read pod state
+      ansible.builtin.command:
+        argv: [/usr/local/bin/k3s, kubectl, get, pods, -A, -o, wide]
+      register: pods
+      changed_when: false
+
+    - name: Read ingress state
+      ansible.builtin.command:
+        argv: [/usr/local/bin/k3s, kubectl, get, ingress, -A]
+      register: ingress
+      changed_when: false
+
+    - name: Test production HTTP endpoint
+      ansible.builtin.command:
+        argv:
+          - curl
+          - --silent
+          - --show-error
+          - --output
+          - /dev/null
+          - --write-out
+          - "%{http_code}"
+          - --max-time
+          - "10"
+          - -H
+          - "Host: tahiry-cloud.com"
+          - http://127.0.0.1/
+      register: http_prod
+      changed_when: false
+      failed_when: http_prod.rc != 0 or http_prod.stdout != "200"
+
+    - name: Test staging HTTP endpoint
+      ansible.builtin.command:
+        argv:
+          - curl
+          - --silent
+          - --show-error
+          - --output
+          - /dev/null
+          - --write-out
+          - "%{http_code}"
+          - --max-time
+          - "10"
+          - -H
+          - "Host: staging.tahiry-cloud.com"
+          - http://127.0.0.1/
+      register: http_staging
+      changed_when: false
+      failed_when: http_staging.rc != 0 or http_staging.stdout != "200"
+
+    - name: Print verification summary
+      ansible.builtin.debug:
+        msg:
+          - "{{ nodes.stdout }}"
+          - "{{ pods.stdout }}"
+          - "{{ ingress.stdout }}"
+          - "HTTP production: {{ http_prod.stdout }}"
+          - "HTTP staging: {{ http_staging.stdout }}"

@@ -1,0 +1,65 @@
+---
+- name: Disable swap for the current boot
+  ansible.builtin.command: swapoff -a
+  register: swapoff_result
+  changed_when: swapoff_result.rc == 0
+  failed_when: swapoff_result.rc != 0
+
+- name: Disable swap entries persistently
+  ansible.builtin.replace:
+    path: /etc/fstab
+    regexp: '^([^#].*\sswap\s.*)$'
+    replace: '# \1'
+    backup: true
+
+- name: Ensure required kernel modules are loaded
+  community.general.modprobe:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - br_netfilter
+    - overlay
+
+- name: Configure Kubernetes sysctl settings
+  ansible.builtin.copy:
+    dest: /etc/sysctl.d/99-kubernetes.conf
+    owner: root
+    group: root
+    mode: "0644"
+    content: |
+      net.bridge.bridge-nf-call-iptables = 1
+      net.bridge.bridge-nf-call-ip6tables = 1
+      net.ipv4.ip_forward = 1
+  notify: reload sysctl
+
+- name: Install required packages
+  ansible.builtin.apt:
+    name:
+      - curl
+      - ca-certificates
+    state: present
+    update_cache: true
+
+- name: Read installed k3s version
+  ansible.builtin.command: /usr/local/bin/k3s --version
+  register: installed_k3s_version
+  changed_when: false
+  failed_when: false
+
+- name: Install or upgrade pinned k3s version
+  ansible.builtin.shell: |
+    set -o pipefail
+    curl --fail --silent --show-error --location {{ k3s_install_script_url | quote }} |
+      INSTALL_K3S_VERSION={{ k3s_version | quote }} sh -s - server --write-kubeconfig-mode 600
+  args:
+    executable: /bin/bash
+  when: installed_k3s_version.rc != 0 or k3s_version not in installed_k3s_version.stdout
+  changed_when: true
+
+- name: Wait for k3s API and node readiness
+  ansible.builtin.command: /usr/local/bin/k3s kubectl get nodes
+  register: k3s_ready
+  until: k3s_ready.rc == 0 and ' Ready ' in k3s_ready.stdout
+  retries: 30
+  delay: 5
+  changed_when: false

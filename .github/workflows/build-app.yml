@@ -1,0 +1,71 @@
+name: build-app
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/portfolio/**'
+      - '.github/workflows/build-app.yml'
+  pull_request:
+    paths:
+      - 'apps/portfolio/**'
+
+permissions:
+  contents: read
+  packages: write
+
+env:
+  IMAGE_PREFIX: ghcr.io/${{ github.repository_owner }}/tahiry-cloud-platform
+
+jobs:
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/login-action@v3
+        if: github.event_name == 'push'
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build
+        run: |
+          docker build \
+            --build-arg PUBLIC_VERSION=${GITHUB_SHA::7} \
+            -t ${{ env.IMAGE_PREFIX }}-frontend:${GITHUB_SHA::7} \
+            apps/portfolio/frontend
+      - name: Scan
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          image-ref: ${{ env.IMAGE_PREFIX }}-frontend:${{ github.sha }}
+          severity: CRITICAL,HIGH
+          exit-code: '1'
+      - name: Push
+        if: github.event_name == 'push'
+        run: docker push ${{ env.IMAGE_PREFIX }}-frontend:${GITHUB_SHA::7}
+
+  backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/login-action@v3
+        if: github.event_name == 'push'
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build
+        run: |
+          docker build \
+            --build-arg APP_VERSION=${GITHUB_SHA::7} \
+            -t ${{ env.IMAGE_PREFIX }}-backend:${GITHUB_SHA::7} \
+            apps/portfolio/backend
+      - name: Scan
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          image-ref: ${{ env.IMAGE_PREFIX }}-backend:${{ github.sha }}
+          severity: CRITICAL,HIGH
+          exit-code: '1'
+      - name: Push
+        if: github.event_name == 'push'
+        run: docker push ${{ env.IMAGE_PREFIX }}-backend:${GITHUB_SHA::7}

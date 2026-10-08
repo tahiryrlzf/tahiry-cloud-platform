@@ -1,0 +1,9 @@
+profile: production
+
+exclude_paths:
+  - .github/
+  - kubernetes/
+  - apps/
+
+skip_list:
+  - var-naming[no-role-prefix]

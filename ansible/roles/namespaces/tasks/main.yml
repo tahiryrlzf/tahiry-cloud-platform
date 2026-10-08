@@ -1,0 +1,31 @@
+---
+- name: Create Kubernetes working directory
+  ansible.builtin.file:
+    path: /tmp/tahiry-cloud-kubernetes
+    state: directory
+    mode: '0755'
+
+- name: Copy namespace baseline manifests
+  ansible.builtin.copy:
+    src: "{{ playbook_dir }}/../../../kubernetes/namespaces/"
+    dest: /tmp/tahiry-cloud-kubernetes/namespaces/
+    mode: preserve
+
+- name: Apply prod baseline
+  ansible.builtin.command:
+    cmd: k3s kubectl apply -k /tmp/tahiry-cloud-kubernetes/namespaces/overlays/prod
+  register: prod_result
+  changed_when: >
+    'created' in prod_result.stdout or 'configured' in prod_result.stdout
+
+- name: Apply staging baseline
+  ansible.builtin.command:
+    cmd: k3s kubectl apply -k /tmp/tahiry-cloud-kubernetes/namespaces/overlays/staging
+  register: staging_result
+  changed_when: >
+    'created' in staging_result.stdout or 'configured' in staging_result.stdout
+
+- name: Cleanup
+  ansible.builtin.file:
+    path: /tmp/tahiry-cloud-kubernetes
+    state: absent

@@ -1,0 +1,86 @@
+---
+- name: Create private temporary manifest directory
+  ansible.builtin.file:
+    path: /tmp/k8s-portfolio
+    state: directory
+    owner: root
+    group: root
+    mode: "0700"
+
+- name: Deploy portfolio manifests for each namespace
+  block:
+    - name: Render manifests containing the GHCR pull secret
+      ansible.builtin.template:
+        src: all.yml.j2
+        dest: "/tmp/k8s-portfolio/{{ item.name }}.yml"
+        owner: root
+        group: root
+        mode: "0600"
+      loop: "{{ portfolio_namespaces }}"
+      loop_control:
+        label: "{{ item.name }}"
+      vars:
+        ns_name: "{{ item.name }}"
+        ns_host: "{{ item.host }}"
+      no_log: true
+
+    - name: Apply manifests
+      ansible.builtin.command:
+        argv:
+          - /usr/local/bin/k3s
+          - kubectl
+          - apply
+          - -f
+          - "/tmp/k8s-portfolio/{{ item.name }}.yml"
+      loop: "{{ portfolio_namespaces }}"
+      loop_control:
+        label: "{{ item.name }}"
+      register: portfolio_apply
+      changed_when: "'created' in portfolio_apply.stdout or 'configured' in portfolio_apply.stdout"
+      no_log: true
+
+    - name: Wait for frontend deployment availability
+      ansible.builtin.command:
+        argv:
+          - /usr/local/bin/k3s
+          - kubectl
+          - wait
+          - --for=condition=Available
+          - deployment/portfolio-frontend
+          - "-n"
+          - "{{ item.name }}"
+          - --timeout=180s
+      loop: "{{ portfolio_namespaces }}"
+      loop_control:
+        label: "{{ item.name }}"
+      changed_when: false
+
+    - name: Wait for backend deployment availability
+      ansible.builtin.command:
+        argv:
+          - /usr/local/bin/k3s
+          - kubectl
+          - wait
+          - --for=condition=Available
+          - deployment/portfolio-backend
+          - "-n"
+          - "{{ item.name }}"
+          - --timeout=180s
+      loop: "{{ portfolio_namespaces }}"
+      loop_control:
+        label: "{{ item.name }}"
+      changed_when: false
+
+  always:
+    - name: Remove rendered manifests
+      ansible.builtin.file:
+        path: "/tmp/k8s-portfolio/{{ item.name }}.yml"
+        state: absent
+      loop: "{{ portfolio_namespaces }}"
+      loop_control:
+        label: "{{ item.name }}"
+
+    - name: Remove temporary directory
+      ansible.builtin.file:
+        path: /tmp/k8s-portfolio
+        state: absent

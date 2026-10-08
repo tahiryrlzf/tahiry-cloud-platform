@@ -1,0 +1,6 @@
+---
+- name: Install pinned k3s on the target node
+  hosts: vps2
+  become: true
+  roles:
+    - k3s

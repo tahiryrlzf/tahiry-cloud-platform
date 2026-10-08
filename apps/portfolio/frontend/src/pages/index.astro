@@ -1,0 +1,39 @@
+---
+const version = import.meta.env.PUBLIC_VERSION ?? 'dev';
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tahiry Cloud</title>
+  </head>
+  <body>
+    <main>
+      <h1>Tahiry Cloud</h1>
+      <p>Plateforme d'infrastructure — démonstration GitOps.</p>
+      <p>Version : <code>{version}</code></p>
+      <p>Environnement : <span id="env">…</span></p>
+      <p>Visites : <strong id="visits">…</strong></p>
+    </main>
+
+    <script>
+      async function loadData() {
+        try {
+          await fetch('/api/visit', { method: 'POST' });
+          const [versionRes, visitsRes] = await Promise.all([
+            fetch('/api/version').then(r => r.json()),
+            fetch('/api/visits').then(r => r.json()),
+          ]);
+          document.getElementById('env').textContent = versionRes.environment;
+          document.getElementById('visits').textContent = visitsRes.count;
+        } catch (e) {
+          document.getElementById('env').textContent = 'inconnu';
+          document.getElementById('visits').textContent = 'erreur';
+        }
+      }
+      loadData();
+    </script>
+  </body>
+</html>

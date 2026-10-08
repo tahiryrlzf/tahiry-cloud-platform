@@ -1,0 +1,27 @@
+# Ansible
+ansible/group_vars/*.yml
+!ansible/group_vars/*.yml.example
+*.retry
+.ansible/
+
+# Secrets
+*.vault_pass
+.vault_pass
+sealed-secrets-master.key.yaml
+pub-sealed-secrets.pem
+
+# Inventaire réel
+inventory/lab/hosts.yml
+!inventory/lab/hosts.yml.example
+
+# Node
+node_modules/
+dist/
+
+# Go
+backend
+*.test
+
+# Local
+.DS_Store
+*.swp

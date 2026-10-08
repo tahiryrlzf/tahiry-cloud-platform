@@ -1,0 +1,8 @@
+---
+# DÉSACTIVÉ APRÈS BASCULE GITOPS.
+# ArgoCD gère le workload. Ce playbook reste pour bootstrap initial ou urgence.
+- name: Deploy portfolio (bootstrap only)
+  hosts: vps2
+  become: true
+  roles:
+    - portfolio

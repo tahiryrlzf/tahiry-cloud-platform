@@ -1,0 +1,21 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: prod
+
+resources:
+  - ../../base
+  - ingress.yaml
+  # Décommenter une fois les SealedSecrets réels générés (sans .example) :
+  # - ../../secrets/prod/ghcr-pull.sealed.yaml
+  # - ../../secrets/prod/postgres-credentials.sealed.yaml
+
+images:
+  - name: ghcr.io/tahiryrlzf/tahiry-cloud-platform-frontend
+    newTag: v0.1.0
+  - name: ghcr.io/tahiryrlzf/tahiry-cloud-platform-backend
+    newTag: v0.1.0
+
+replicas:
+  - { name: portfolio-frontend, count: 1 }
+  - { name: portfolio-backend, count: 1 }

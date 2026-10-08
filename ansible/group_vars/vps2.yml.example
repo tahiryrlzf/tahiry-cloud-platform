@@ -1,0 +1,4 @@
+---
+# Copier en vps2.yml et chiffrer avec Ansible Vault.
+# Le mot de passe Vault reste hors du dépôt.
+vault_ghcr_token: "CHANGE_ME_AND_ENCRYPT_THIS_FILE_WITH_ANSIBLE_VAULT"

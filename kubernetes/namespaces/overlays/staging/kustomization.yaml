@@ -1,0 +1,35 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: staging
+
+resources:
+  - namespace.yaml
+  - ../../base
+
+patches:
+  - target:
+      kind: ResourceQuota
+      name: compute-quota
+    patch: |-
+      - op: replace
+        path: /spec/hard/requests.cpu
+        value: "1"
+      - op: replace
+        path: /spec/hard/requests.memory
+        value: 1Gi
+      - op: replace
+        path: /spec/hard/limits.cpu
+        value: "2"
+      - op: replace
+        path: /spec/hard/limits.memory
+        value: 2Gi
+      - op: replace
+        path: /spec/hard/pods
+        value: "10"
+      - op: replace
+        path: /spec/hard/persistentvolumeclaims
+        value: "1"
+      - op: replace
+        path: /spec/hard/requests.storage
+        value: 1Gi

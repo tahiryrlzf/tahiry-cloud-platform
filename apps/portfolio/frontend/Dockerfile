@@ -9,6 +9,8 @@ RUN npm run build
 
 FROM nginx:1.27-alpine AS runtime
 
+RUN apk upgrade --no-cache
+
 COPY --from=build --chown=nginx:nginx /app/dist /usr/share/nginx/html
 COPY --chown=nginx:nginx nginx.conf /etc/nginx/nginx.conf
 

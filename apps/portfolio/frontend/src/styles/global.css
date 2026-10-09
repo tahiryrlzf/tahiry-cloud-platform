@@ -413,4 +413,18 @@ section.block { padding: 0 0 72px; }
 @media (min-width: 1280px) {
   .hero { padding: 80px 0 64px; }
 }
+
+.hero-description {
+  max-width: 720px;
+  margin: 0 0 32px;
+  color: var(--muted);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+}
+.hero-description p {
+  margin: 0 0 16px;
+}
+.hero-description p:last-child {
+  margin-bottom: 0;
+}
 /* ==== FIN RESPONSIVE-V2 ==== */

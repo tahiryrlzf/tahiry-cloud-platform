@@ -1,6 +1,6 @@
 export const site = {
   name: "Tahiry Frédéric",
-  title: "Tahiry Frédéric — Cloud / DevOps / DevSecOps / SRE",
+  title: "Tahiry Frédéric — Cloud / DevOps / DevSecOps",
   description:
     "Infrastructure hybride, sécurisée et automatisée. Cloud, Kubernetes, GitOps, sécurité.",
   url: "https://tahiry-cloud.com",
@@ -13,9 +13,10 @@ export const site = {
   },
 
   hero: {
-    eyebrow: "Cloud / DevOps / DevSecOps / SRE",
+    eyebrow: "Cloud / DevOps / DevSecOps",
     headline: "Infrastructure hybride, sécurisée, automatisée.",
-    lede: "Infrastructure hybride, sécurisée et automatisée.\n\nAdministrateur systèmes et réseaux avec plus de 5 ans d'expérience en production et titulaire d'un Master 2 en Réseaux & Systèmes, je possède une solide expérience en virtualisation, réseaux, sécurité des infrastructures et supervision (VMware, Sophos, pfSense, Active Directory, Zabbix).\n\nJ'évolue aujourd'hui vers le Cloud, le DevOps et le DevSecOps en concevant et documentant des plateformes techniques intégrant l'Infrastructure as Code (IaC), Kubernetes, la CI/CD, la sécurité et l'observabilité.",
+    lede1: "Administrateur systèmes et réseaux avec plus de 5 ans d'expérience en production et titulaire d'un Master 2 en Réseaux & Systèmes, je possède une solide expérience en virtualisation, réseaux, sécurité des infrastructures et supervision (VMware, Sophos, pfSense, Active Directory, Zabbix).",
+    lede2: "J'évolue aujourd'hui vers le Cloud, le DevOps et le DevSecOps en concevant et documentant des plateformes techniques intégrant l'Infrastructure as Code (IaC), Kubernetes, la CI/CD, la sécurité et l'observabilité.",
     ctas: [
       { label: "Voir les projets", href: "#projects", variant: "primary" },
       { label: "Voir le parcours", href: "#skills", variant: "secondary" },

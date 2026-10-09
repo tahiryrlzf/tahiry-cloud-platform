@@ -21,7 +21,7 @@ export const site = {
       { label: "Voir les projets", href: "#projects", variant: "primary" },
       { label: "Voir le parcours", href: "#skills", variant: "secondary" },
       { label: "GitHub", href: "https://github.com/tahiryrlzf", variant: "secondary" },
-      { label: "Me contacter", href: "mailto:contact@tahiry-cloud.com", variant: "secondary" },
+      { label: "Me contacter", href: "mailto:contact@tahiry-cloud.com?subject=Contact%20depuis%20tahiry-cloud.com", variant: "secondary" },
     ],
   },
 
@@ -83,7 +83,6 @@ export const site = {
         "PowerShell",
         "Batch",
         "Cron",
-        "OpenTofu (à venir)",
       ],
     },
     {
@@ -112,7 +111,6 @@ export const site = {
         "Zabbix (en production)",
         "Prometheus (à venir)",
         "Grafana (à venir)",
-        "Loki (à venir)",
       ],
     },
     {
@@ -133,10 +131,6 @@ export const site = {
         "Active Directory / GPO (production)",
         "Restic",
       ],
-    },
-    {
-      domain: "Diagnostic réseau",
-      items: ["tcpdump", "Wireshark", "mtr", "ss", "dig", "traceroute"],
     },
   ],
 

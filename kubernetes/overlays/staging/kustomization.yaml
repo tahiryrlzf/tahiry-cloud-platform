@@ -6,9 +6,8 @@ namespace: staging
 resources:
   - ../../base
   - ingress.yaml
-  # Décommenter une fois les SealedSecrets réels générés (sans .example) :
-  # - ../../secrets/staging/ghcr-pull.sealed.yaml
-  # - ../../secrets/staging/postgres-credentials.sealed.yaml
+  - secrets/ghcr-pull.sealed.yaml
+  - secrets/postgres-credentials.sealed.yaml
 
 images:
   - name: ghcr.io/tahiryrlzf/tahiry-cloud-platform-frontend

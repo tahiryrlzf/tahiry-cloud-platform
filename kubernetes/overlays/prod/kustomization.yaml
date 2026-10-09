@@ -6,9 +6,8 @@ namespace: prod
 resources:
   - ../../base
   - ingress.yaml
-  # Décommenter une fois les SealedSecrets réels générés (sans .example) :
-  # - ../../secrets/prod/ghcr-pull.sealed.yaml
-  # - ../../secrets/prod/postgres-credentials.sealed.yaml
+  - secrets/ghcr-pull.sealed.yaml
+  - secrets/postgres-credentials.sealed.yaml
 
 images:
   - name: ghcr.io/tahiryrlzf/tahiry-cloud-platform-frontend

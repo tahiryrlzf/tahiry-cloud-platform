@@ -1,9 +1,14 @@
 ---
+- name: Check active swap
+  ansible.builtin.command: swapon --show --noheadings
+  register: active_swap
+  changed_when: false
+
 - name: Disable swap for the current boot
   ansible.builtin.command: swapoff -a
-  register: swapoff_result
-  changed_when: swapoff_result.rc == 0
-  failed_when: swapoff_result.rc != 0
+  when: active_swap.stdout | length > 0
+  changed_when: true
+
 
 - name: Disable swap entries persistently
   ansible.builtin.replace:
@@ -30,7 +35,7 @@
       net.bridge.bridge-nf-call-iptables = 1
       net.bridge.bridge-nf-call-ip6tables = 1
       net.ipv4.ip_forward = 1
-  notify: reload sysctl
+  notify: Reload sysctl
 
 - name: Install required packages
   ansible.builtin.apt:

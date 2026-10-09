@@ -7,7 +7,7 @@
 
 - name: Copy namespace baseline manifests
   ansible.builtin.copy:
-    src: "{{ playbook_dir }}/../../../kubernetes/namespaces/"
+    src: "{{ playbook_dir }}/../../kubernetes/namespaces/"
     dest: /tmp/tahiry-cloud-kubernetes/namespaces/
     mode: preserve
 

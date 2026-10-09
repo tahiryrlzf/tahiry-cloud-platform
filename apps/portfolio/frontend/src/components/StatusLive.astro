@@ -1,0 +1,56 @@
+---
+---
+<section class="block container">
+  <p class="section-label">Système</p>
+  <div class="status-grid">
+    <div class="status-card">
+      <span class="label">État</span>
+      <span class="value">
+        <span class="dot loading" id="status-dot"></span>
+        <span id="status-text">chargement…</span>
+      </span>
+    </div>
+    <div class="status-card">
+      <span class="label">Environnement</span>
+      <span class="value" id="status-env">—</span>
+    </div>
+    <div class="status-card">
+      <span class="label">Version</span>
+      <span class="value" id="status-version">—</span>
+    </div>
+    <div class="status-card">
+      <span class="label">Visites</span>
+      <span class="value" id="status-visits">—</span>
+    </div>
+  </div>
+</section>
+
+<script>
+  async function updateStatus() {
+    const dot = document.getElementById("status-dot");
+    const text = document.getElementById("status-text");
+    const env = document.getElementById("status-env");
+    const version = document.getElementById("status-version");
+    const visits = document.getElementById("status-visits");
+
+    try {
+      fetch("/api/visit", { method: "POST" }).catch(() => {});
+      const [v, c] = await Promise.all([
+        fetch("/api/version").then((r) => r.json()),
+        fetch("/api/visits").then((r) => r.json()),
+      ]);
+      if (dot) { dot.classList.remove("loading", "offline"); dot.classList.add("ok"); }
+      if (text) text.textContent = "En ligne";
+      if (env) env.textContent = v.environment ?? "—";
+      if (version) version.textContent = (v.version ?? "—").slice(0, 7);
+      if (visits) visits.textContent = String(c.count ?? "—");
+    } catch {
+      if (dot) { dot.classList.remove("loading", "ok"); dot.classList.add("offline"); }
+      if (text) text.textContent = "Indisponible";
+      if (env) env.textContent = "—";
+      if (version) version.textContent = "—";
+      if (visits) visits.textContent = "—";
+    }
+  }
+  updateStatus();
+</script>

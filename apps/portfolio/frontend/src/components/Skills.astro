@@ -1,0 +1,16 @@
+---
+import { site } from "../data/site";
+---
+<section class="block container" id="skills">
+  <p class="section-label">Compétences</p>
+  <dl>
+    {site.skills.map((s) => (
+      <div class="skill-row">
+        <dt>{s.domain}</dt>
+        <dd>
+          {s.items.map((item) => <span class="skill-pill">{item}</span>)}
+        </dd>
+      </div>
+    ))}
+  </dl>
+</section>

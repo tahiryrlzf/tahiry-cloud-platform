@@ -1,0 +1,23 @@
+---
+import { site } from "../data/site";
+---
+<section class="block container" id="projects">
+  <p class="section-label">Projets</p>
+  <div class="project-grid">
+    {site.projects.map((p) => (
+      <a href={p.href} class="project-card"
+         target={p.href.startsWith("http") ? "_blank" : undefined}
+         rel={p.href.startsWith("http") ? "noopener" : undefined}>
+        <h3>{p.name}</h3>
+        <p class="tagline">{p.tagline}</p>
+        <p>{p.description}</p>
+        <div class="tags">
+          {p.tags.map((t) => <span class="tag">{t}</span>)}
+        </div>
+        <span class="project-link">
+          {p.status === "live" ? "Voir le dépôt →" : "À venir →"}
+        </span>
+      </a>
+    ))}
+  </div>
+</section>

@@ -1,0 +1,13 @@
+---
+import { site } from "../data/site";
+---
+<section class="hero container">
+  <p class="eyebrow">{site.hero.eyebrow}</p>
+  <h1>{site.hero.headline}</h1>
+  <p class="lede">{site.hero.lede}</p>
+  <div class="cta-row">
+    {site.hero.ctas.map((c) => (
+      <a href={c.href} class={`btn btn-${c.variant}`}>{c.label}</a>
+    ))}
+  </div>
+</section>

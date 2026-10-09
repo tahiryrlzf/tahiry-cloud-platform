@@ -1,0 +1,14 @@
+---
+import { site } from "../data/site";
+---
+<section class="block container" id="journal">
+  <p class="section-label">Journal</p>
+  <ul class="journal-list">
+    {site.journal.map((entry) => (
+      <li>
+        <span class="journal-date">{entry.date}</span>
+        <a href={entry.href} class="journal-title">{entry.title}</a>
+      </li>
+    ))}
+  </ul>
+</section>

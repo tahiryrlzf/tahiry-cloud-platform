@@ -15,8 +15,7 @@ export const site = {
   hero: {
     eyebrow: "Cloud / DevOps / DevSecOps / SRE",
     headline: "Infrastructure hybride, sécurisée, automatisée.",
-    lede:
-      "Administrateur systèmes et réseaux avec 5+ ans en production (VMware, Sophos, pfSense, Active Directory, Zabbix). En transition vers le Cloud, le GitOps et la sécurité. Je construis et documente une plateforme réelle : réseau, Kubernetes, GitOps, observabilité.",
+    lede: "Infrastructure hybride, sécurisée et automatisée.\n\nAdministrateur systèmes et réseaux avec plus de 5 ans d'expérience en production et titulaire d'un Master 2 en Réseaux & Systèmes, je possède une solide expérience en virtualisation, réseaux, sécurité des infrastructures et supervision (VMware, Sophos, pfSense, Active Directory, Zabbix).\n\nJ'évolue aujourd'hui vers le Cloud, le DevOps et le DevSecOps en concevant et documentant des plateformes techniques intégrant l'Infrastructure as Code (IaC), Kubernetes, la CI/CD, la sécurité et l'observabilité.",
     ctas: [
       { label: "Voir les projets", href: "#projects", variant: "primary" },
       { label: "Voir le parcours", href: "#skills", variant: "secondary" },

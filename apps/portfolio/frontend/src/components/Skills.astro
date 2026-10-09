@@ -1,6 +1,7 @@
 ---
 import { site } from "../data/site";
 ---
+
 <section class="block container" id="skills">
   <p class="section-label">Compétences</p>
   <dl>
@@ -8,7 +9,20 @@ import { site } from "../data/site";
       <div class="skill-row">
         <dt>{s.domain}</dt>
         <dd>
-          {s.items.map((item) => <span class="skill-pill">{item}</span>)}
+          {s.items.map((item) => {
+            const isProd = item.includes("(production)") || item.includes("(en production)");
+            const isTodo = item.includes("(à venir)") || item.includes("(en cours)");
+            const isLab = item.includes("(lab)");
+            const clean = item.replace(/\s*\((production|en production|lab|à venir|en cours)\)/, "");
+            const cls = isProd
+              ? "skill-pill prod"
+              : isTodo
+                ? "skill-pill todo"
+                : isLab
+                  ? "skill-pill lab"
+                  : "skill-pill";
+            return <span class={cls}>{clean}</span>;
+          })}
         </dd>
       </div>
     ))}

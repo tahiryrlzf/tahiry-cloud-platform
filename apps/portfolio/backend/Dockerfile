@@ -5,7 +5,7 @@ RUN go mod download
 COPY . .
 ARG APP_VERSION=dev
 RUN CGO_ENABLED=0 GOOS=linux go build \
-    -ldflags="-s -w" \
+    -ldflags="-s -w -X main.buildVersion=${APP_VERSION}" \
     -o /out/backend .
 
 FROM scratch AS runtime

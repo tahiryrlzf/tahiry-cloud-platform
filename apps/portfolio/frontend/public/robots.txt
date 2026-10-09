@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://tahiry-cloud.com/sitemap-index.xml
+
+# Contact technique
+# Contact: contact@tahiry-cloud.com

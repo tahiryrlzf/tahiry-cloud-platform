@@ -11,6 +11,8 @@ import (
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
+var buildVersion = "dev"
+
 type VersionResponse struct {
 	Version     string `json:"version"`
 	Environment string `json:"environment"`
@@ -68,8 +70,12 @@ func main() {
 	})
 
 	mux.HandleFunc("/api/version", func(w http.ResponseWriter, r *http.Request) {
+		v := buildVersion
+		if len(v) > 7 {
+			v = v[:7]
+		}
 		resp := VersionResponse{
-			Version:     env("APP_VERSION", "dev"),
+			Version:     v,
 			Environment: env("APP_ENV", "unknown"),
 		}
 		w.Header().Set("Content-Type", "application/json")
@@ -99,7 +105,7 @@ func main() {
 	})
 
 	addr := ":8080"
-	log.Printf("listening on %s", addr)
+	log.Printf("listening on %s (version=%s)", addr, buildVersion)
 	if err := http.ListenAndServe(addr, mux); err != nil {
 		log.Fatal(err)
 	}

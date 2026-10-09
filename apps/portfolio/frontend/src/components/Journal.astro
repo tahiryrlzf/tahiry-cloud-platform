@@ -1,13 +1,20 @@
 ---
 import { site } from "../data/site";
 ---
+
 <section class="block container" id="journal">
   <p class="section-label">Journal</p>
   <ul class="journal-list">
     {site.journal.map((entry) => (
       <li>
-        <span class="journal-date">{entry.date}</span>
-        <a href={entry.href} class="journal-title">{entry.title}</a>
+        {entry.published ? (
+          <a href={`/journal/${entry.slug}`} class="journal-title">{entry.title}</a>
+        ) : (
+          <>
+            <span class="journal-title journal-pending">{entry.title}</span>
+            <span class="journal-badge">À venir</span>
+          </>
+        )}
       </li>
     ))}
   </ul>

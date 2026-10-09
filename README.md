@@ -1,5 +1,9 @@
 # tahiry-cloud-platform
 
+[![validate](https://github.com/tahiryrlzf/tahiry-cloud-platform/actions/workflows/lint.yml/badge.svg)](https://github.com/tahiryrlzf/tahiry-cloud-platform/actions/workflows/lint.yml)
+[![build-app](https://github.com/tahiryrlzf/tahiry-cloud-platform/actions/workflows/build-app.yml/badge.svg)](https://github.com/tahiryrlzf/tahiry-cloud-platform/actions/workflows/build-app.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 Infra et plateforme : Ansible pour le provisionnement, k3s pour Kubernetes,
 ArgoCD pour le GitOps, Sealed Secrets pour les secrets, CI GitHub Actions.
 

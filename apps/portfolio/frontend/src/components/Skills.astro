@@ -8,22 +8,7 @@ import { site } from "../data/site";
     {site.skills.map((s) => (
       <div class="skill-row">
         <dt>{s.domain}</dt>
-        <dd>
-          {s.items.map((item) => {
-            const isProd = item.includes("(production)") || item.includes("(en production)");
-            const isTodo = item.includes("(à venir)") || item.includes("(en cours)");
-            const isLab = item.includes("(lab)");
-            const clean = item.replace(/\s*\((production|en production|lab|à venir|en cours)\)/, "");
-            const cls = isProd
-              ? "skill-pill prod"
-              : isTodo
-                ? "skill-pill todo"
-                : isLab
-                  ? "skill-pill lab"
-                  : "skill-pill";
-            return <span class={cls}>{clean}</span>;
-          })}
-        </dd>
+        <dd>{s.items.join(" · ")}</dd>
       </div>
     ))}
   </dl>

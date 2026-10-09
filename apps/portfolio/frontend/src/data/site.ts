@@ -57,7 +57,7 @@ export const site = {
 
   skills: [
     {
-      domain: "Cloud & Kubernetes",
+      domain: "Cloud, conteneurs & orchestration",
       items: ["k3s", "Docker", "Helm", "Kustomize", "Contabo"],
     },
     {
@@ -94,7 +94,7 @@ export const site = {
       items: ["Zabbix", "Prometheus", "Grafana"],
     },
     {
-      domain: "Virtualisation & cloud privé",
+      domain: "Virtualisation & IaaS",
       items: [
         "VMware vCenter/ESXi",
         "Proxmox",

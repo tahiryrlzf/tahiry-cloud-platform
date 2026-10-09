@@ -59,7 +59,7 @@ a:hover { color: var(--accent); }
 }
 
 h1, h2, h3 { font-weight: 600; line-height: 1.2; letter-spacing: -0.01em; }
-h1 { font-size: clamp(2rem, 4vw, 2.75rem); margin: 0 0 16px; }
+h1 { font-size: clamp(1.75rem, 3.5vw, 2.25rem); margin: 0 0 16px; }
 h2 { font-size: 1.25rem; margin: 0 0 24px; }
 h3 { font-size: 1rem; margin: 0 0 4px; }
 
@@ -115,7 +115,7 @@ h3 { font-size: 1rem; margin: 0 0 4px; }
 }
 .site-nav a:hover { color: var(--ink); }
 
-.hero { padding: 88px 0 72px; }
+.hero { padding: 64px 0 56px; }
 .hero h1 { max-width: 720px; }
 .hero .lede {
   font-size: 1.0625rem;
@@ -305,12 +305,18 @@ section.block { padding: 0 0 72px; }
 .footer-links a:hover { color: var(--ink); }
 
 @media (max-width: 720px) {
-  .hero { padding: 64px 0 48px; }
+  .hero { padding: 48px 0 40px; }
+  h1 { font-size: 1.75rem; }
   .status-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .project-grid { grid-template-columns: 1fr; }
   .skill-row { grid-template-columns: 1fr; gap: 8px; }
   .journal-list li { grid-template-columns: 1fr; gap: 4px; }
   .site-nav { gap: 16px; }
+}
+
+@media (min-width: 1280px) {
+  .container { max-width: 1080px; }
+  .hero { padding: 80px 0 64px; }
 }
 
 /* ==== PORTFOLIO-V2 START ==== */

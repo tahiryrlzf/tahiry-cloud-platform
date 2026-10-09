@@ -19,7 +19,7 @@ export const site = {
       "Administrateur systèmes et réseaux avec 5+ ans en production (VMware, Sophos, pfSense, Active Directory, Zabbix). En transition vers le Cloud, le GitOps et la sécurité. Je construis et documente une plateforme réelle : réseau, Kubernetes, GitOps, observabilité.",
     ctas: [
       { label: "Voir les projets", href: "#projects", variant: "primary" },
-      { label: "Lire le journal", href: "#journal", variant: "secondary" },
+      { label: "Voir le parcours", href: "#skills", variant: "secondary" },
       { label: "GitHub", href: "https://github.com/tahiryrlzf", variant: "secondary" },
       { label: "Me contacter", href: "mailto:contact@tahiry-cloud.com", variant: "secondary" },
     ],

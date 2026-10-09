@@ -1,13 +1,13 @@
 ---
 import { site } from "../data/site";
 ---
+
 <header class="site-header">
   <div class="container header-inner">
-    <a href="/" class="logo">tahiry<span class="logo-dot">.</span>cloud</a>
+    <a href="/" class="logo">{site.name}</a>
     <nav class="site-nav">
       <a href="#projects">Projets</a>
       <a href="#skills">Compétences</a>
-      <a href="#journal">Journal</a>
       <a href={site.links.github} target="_blank" rel="noopener">GitHub</a>
     </nav>
   </div>

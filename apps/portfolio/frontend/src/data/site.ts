@@ -38,9 +38,9 @@ export const site = {
     {
       name: "tahiry-cloud-platform",
       tagline: "Plateforme hybride, DevOps & DevSecOps",
-      context: "Vous êtes dessus : ce portfolio est servi par cette infrastructure, en direct.",
+      context: "Ce portfolio tourne sur cette infrastructure",
       description:
-        "Plateforme hybride basée sur Kubernetes k3s, avec CI/CD via GitHub Actions et déploiement GitOps par Argo CD. La chaîne intègre les contrôles de sécurité Trivy et Gitleaks, tandis que WireGuard et Traefik assurent la connectivité sécurisée et l'exposition des services. Les secrets et les workloads sont protégés par Sealed Secrets, les NetworkPolicies et PSA restricted.",
+        "Cluster Kubernetes k3s avec CI/CD GitHub Actions et déploiement GitOps par Argo CD. Les analyses Trivy (images) et Gitleaks (secrets) s'exécutent dans la CI. WireGuard sécurise l'accès réseau, Traefik expose les services, Sealed Secrets gère les secrets, et le cluster applique des NetworkPolicies et le profil PSA restricted.",
       tags: ["WireGuard", "k3s", "Traefik", "GitHub Actions", "Argo CD", "Sealed Secrets", "Trivy", "Gitleaks"],
       href: "https://github.com/tahiryrlzf/tahiry-cloud-platform",
       status: "live" as const,

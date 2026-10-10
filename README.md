@@ -60,7 +60,8 @@ Aucune clé privée, PSK ou token n'est versionné.
 - **Ansible** : installe k3s et le socle machine.
 - **ArgoCD** : gère les ressources Kubernetes depuis Git.
 - **Sealed Secrets** : chiffre les secrets versionnés.
-- **GitHub Actions** : lint, build des images, scan Trivy, push GHCR.
+- **GitHub Actions** : lint, détection de secrets (Gitleaks), build des
+  images, scan Trivy, push GHCR.
 
 Depuis la bascule GitOps, `03-deploy-portfolio.yml` n'est plus utilisé.
 
@@ -73,10 +74,9 @@ inventory/lab/      exemple d'inventaire
 kubernetes/
   bootstrap/        installation ArgoCD et Sealed Secrets
   argocd/           AppProject + Applications
-  secrets/          SealedSecrets
   namespaces/       PSA, NetworkPolicies, quotas
   base/             Deployments, Services, StatefulSet postgres
-  overlays/         Ingress prod/staging
+  overlays/         Ingress et SealedSecrets prod/staging
 scripts/            helpers
 ```
 
@@ -86,9 +86,9 @@ scripts/            helpers
 - Ansible (k3s, namespaces) : opérationnel.
 - Socle k8s (PSA, NetworkPolicies, quotas) : opérationnel.
 - Frontend, backend, PostgreSQL : opérationnels.
-- CI (lint, build, scan Trivy, push GHCR) : opérationnelle.
-- ArgoCD et Sealed Secrets : en cours de mise en place.
-- GitOps et restauration testée : à faire.
+- CI (lint, Gitleaks, build, scan Trivy, push GHCR) : opérationnelle.
+- ArgoCD (GitOps) et Sealed Secrets : opérationnels.
+- Restauration testée : à faire.
 
 ## Limites
 

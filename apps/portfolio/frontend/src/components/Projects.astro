@@ -3,7 +3,15 @@ import { site } from "../data/site";
 
 const statusLabel: Record<string, string> = {
   done: "Terminé",
+  live: "En production",
   wip: "En cours",
+  planned: "À venir",
+};
+
+const linkLabel: Record<string, string> = {
+  done: "Voir le dépôt →",
+  live: "Voir le dépôt →",
+  wip: "Dépôt privé",
   planned: "À venir",
 };
 ---
@@ -29,16 +37,13 @@ const statusLabel: Record<string, string> = {
             </span>
           </div>
           <p class="tagline">{p.tagline}</p>
+          {p.context && <p class="project-context">{p.context}</p>}
           <p>{p.description}</p>
           <div class="tags">
             {p.tags.map((t) => <span class="tag">{t}</span>)}
           </div>
           <span class="project-link">
-            {p.status === "done" && isLink
-              ? "Voir le dépôt →"
-              : p.status === "wip"
-                ? "Dépôt privé"
-                : "À venir"}
+            {linkLabel[p.status]}
           </span>
         </Tag>
       );

@@ -419,7 +419,7 @@ section.block { padding: 0 0 72px; }
 /* ==== FIN RESPONSIVE-V2 ==== */
 
 /* ==== PORTFOLIO-V3 START ==== */
-.project-context {
+.project-card .project-context {
   font-size: 0.8125rem;
   color: var(--accent);
   margin: 0 0 12px;

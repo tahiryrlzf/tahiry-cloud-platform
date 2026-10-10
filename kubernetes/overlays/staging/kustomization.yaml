@@ -11,9 +11,9 @@ resources:
 
 images:
   - name: ghcr.io/tahiryrlzf/tahiry-cloud-platform-frontend
-    newTag: b337a58c21a69ac9270cf6cb3781f8b2ff0a0a53
+    newTag: bc7dddfef0b102b4ff177ea932185baff69ac4df
   - name: ghcr.io/tahiryrlzf/tahiry-cloud-platform-backend
-    newTag: b337a58c21a69ac9270cf6cb3781f8b2ff0a0a53
+    newTag: bc7dddfef0b102b4ff177ea932185baff69ac4df
 
 replicas:
   - { name: portfolio-frontend, count: 1 }

@@ -1,7 +1,8 @@
 ---
-# Bootstrap du socle : à exécuter UNE FOIS avant la bascule GitOps.
-# Après la bascule, ArgoCD gère le socle.
-- name: Apply namespace baseline (bootstrap only)
+# Configuration initiale des namespaces, quotas, NetworkPolicies et PSA.
+# La gestion du socle est maintenant assurée par Argo CD.
+#
+- name: Apply namespace baseline
   hosts: vps2
   become: true
   roles:

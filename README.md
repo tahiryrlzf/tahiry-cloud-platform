@@ -57,14 +57,16 @@ Aucune clé privée, PSK ou token n'est versionné.
 
 ## Rôles
 
-- **Ansible** : installe k3s et le socle machine.
-- **ArgoCD** : gère les ressources Kubernetes depuis Git.
+- **Ansible** : installe k3s et crée le socle Kubernetes initial
+  (namespaces, quotas, NetworkPolicies, PSA) avant ArgoCD.
+- **ArgoCD** : maintient le socle et déploie le portfolio depuis Git.
 - **Sealed Secrets** : chiffre les secrets versionnés.
 - **GitHub Actions** : lint, détection de secrets (Gitleaks), build des
   images, scan Trivy, push GHCR.
 
-Au démarrage, Ansible déployait aussi le portfolio via un playbook (`03-deploy-portfolio.yml`). 
-Depuis qu'ArgoCD gère le déploiement,ce playbook n'est plus utilisé. Il est conservé pour référence.
+Au démarrage, Ansible déployait aussi le portfolio via un playbook.
+Depuis qu'ArgoCD gère le déploiement, ce playbook est désactivé (`03-deploy-portfolio.yml.disabled`). 
+Il reste dans le repo pour référence historique.
 
 ## Contenu
 

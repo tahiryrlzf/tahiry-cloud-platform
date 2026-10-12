@@ -1,7 +1,11 @@
 ---
-# DÉSACTIVÉ APRÈS BASCULE GITOPS.
-# ArgoCD gère le workload. Ce playbook reste pour bootstrap initial ou urgence.
-- name: Deploy portfolio (bootstrap only)
+# Playbook obsolète.
+#
+# Ce playbook déployait le portfolio avant la mise en place d'ArgoCD.
+# Il n'est plus utilisé : ArgoCD gère les SealedSecrets, le Deployment,
+# le Service et l'Ingress. Conservé pour référence historique.
+#
+- name: Deploy portfolio (obsolete)
   hosts: vps2
   become: true
   roles:

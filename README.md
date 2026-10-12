@@ -63,7 +63,8 @@ Aucune clé privée, PSK ou token n'est versionné.
 - **GitHub Actions** : lint, détection de secrets (Gitleaks), build des
   images, scan Trivy, push GHCR.
 
-Depuis la bascule GitOps, `03-deploy-portfolio.yml` n'est plus utilisé.
+Au démarrage, Ansible déployait aussi le portfolio via un playbook (`03-deploy-portfolio.yml`). 
+Depuis qu'ArgoCD gère le déploiement,ce playbook n'est plus utilisé. Il est conservé pour référence.
 
 ## Contenu
 

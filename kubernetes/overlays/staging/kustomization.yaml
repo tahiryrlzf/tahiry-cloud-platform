@@ -4,6 +4,7 @@ kind: Kustomization
 namespace: staging
 
 resources:
+  - revert-test-cm.yaml
   - ../../base
   - ingress.yaml
   - secrets/ghcr-pull.sealed.yaml

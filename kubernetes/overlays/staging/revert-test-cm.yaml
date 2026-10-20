@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: revert-test-cm
+  annotations:
+    purpose: "verify git revert capability"
+    version: "1"
+data:
+  key: "value"
